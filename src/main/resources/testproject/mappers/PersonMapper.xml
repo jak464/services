@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="testproject.mappers.PersonMapper">
+	<resultMap id="peopleResultMap" type="testproject.cargos.Person">
+		<result property="name" column="name" />
+		<result property="age" column="age" />
+		<result property="gender" column="gender" />
+	</resultMap>
+
+	<select id="selectPeople" resultMap="peopleResultMap">
+		select name, age, gender
+		from Person
+	</select>
+</mapper>

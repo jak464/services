@@ -1,7 +1,6 @@
 package testproject.controllers;
 
-import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -13,29 +12,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import testproject.cargos.Account;
+import testproject.services.AccountService;
 
 @Controller
 public class AccountController {
 	
-	ArrayList<Account> accountList = new ArrayList<Account>();
+	@Autowired
+	private AccountService service;
 
 	@RequestMapping(path = "/accounts/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Account getAccount(@PathVariable int accountId) {
-		for(int i = 0; i < accountList.size(); i++) {
-			if(accountList.get(i).getAccountId() == accountId ) {
-				return accountList.get(i);
-			}
-		}
-		return null;	
+		return service.getAccount(accountId);
 	}
 	
 	
 	@RequestMapping(path = "/accounts", consumes = MediaType.APPLICATION_JSON_VALUE, method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void addAccount(@RequestBody Account account) {
-		accountList.add(account);
+		service.addAccount(account);
 	}
-	
-	
 }
